@@ -73,3 +73,11 @@ class DishListView(generic.ListView):
             ordering.append("-price")
         queryset = queryset.order_by(*ordering)
         return queryset
+
+
+class DishDetailView(generic.DetailView):
+    model = Dish
+
+
+class DishCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Dish
