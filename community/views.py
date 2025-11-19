@@ -19,6 +19,7 @@ class PostCreateView(generic.CreateView):
 class PostDetailView(generic.DetailView):
     model = Post
     queryset = Post.objects.all().prefetch_related("comments")
+    template_name = "receipts/comments.html"
 
 
 class PostDeleteView(LoginRequiredMixin, generic.DeleteView):
