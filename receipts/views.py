@@ -77,6 +77,8 @@ class DishListView(generic.ListView):
 
 class DishDetailView(generic.DetailView):
     model = Dish
+    queryset = Dish.objects.all().select_related("author", "receipt").prefetch_related("liked_users")
+    template_name = "receipts/dish.html"
 
 
 class DishCreateView(LoginRequiredMixin, generic.CreateView):

@@ -61,7 +61,7 @@ class Dish(models.Model):
                                on_delete=models.SET_NULL,
                                null=True,
                                related_name="inventions")
-    liked_users = models.ManyToManyField(Cooker, related_name="favourites") 
+    liked_users = models.ManyToManyField(Cooker, related_name="favourites")
     description = models.TextField(null=True, blank=True)
     receipt = models.OneToOneField(Receipt, on_delete=models.CASCADE, related_name="dish")
     price_usdt = models.DecimalField(max_digits=10, decimal_places=2)
