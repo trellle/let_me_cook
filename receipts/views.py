@@ -7,7 +7,9 @@ from receipts.models import (
     Restaurant,
     Shop
 )
+from receipts.forms import DishCreate
 from community.models import Post
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -83,3 +85,6 @@ class DishDetailView(generic.DetailView):
 
 class DishCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
+    template_name = "receipts/create_dish.html"
+    form_class = DishCreate
+    success_url = reverse_lazy("community:my_receipts")
