@@ -5,4 +5,4 @@ from receipts.models import Dish
 class DishCreate(forms.Models):
     class Meta:
         model = Dish
-        fields = []
+        fields = ["name", "authors", "description", "receipt", "price_usdt", "difficulty_rate"]
