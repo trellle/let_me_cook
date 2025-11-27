@@ -213,3 +213,4 @@ __marimo__/
 **__pycache__/
 db.sqlite3
 plan.txt
+measures.txt
