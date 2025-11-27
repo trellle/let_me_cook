@@ -64,8 +64,7 @@ class Dish(models.Model):
         CHEF = "chef", "cooking artist"
 
     name = models.CharField(max_length=512)
-    author = models.ForeignKey(Cooker,
-                               on_delete=models.SET_NULL,
+    authors = models.ManyToManyField(Cooker,
                                null=True,
                                related_name="inventions")
     liked_users = models.ManyToManyField(Cooker, related_name="favourites") 
