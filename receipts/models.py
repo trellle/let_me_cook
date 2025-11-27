@@ -40,11 +40,18 @@ class Step(models.Model):
     template = models.ImageField(null=True, blank=True)
 
 
+class Measure(models.Model):
+     name = models.CharField(max_length=64)
+     abbreviation = models.CharField(max_length=32)
+     info = models.TextField()
+     image = models.ImageField()
+
+
 class IngredientsAmount(models.Model):
     ingredients = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    measure = models.CharField(max_length=128) # choice field
+    measure = models.ForeignKey(Measure, on_delete=models.PROTECT)
 
 
 class Dish(models.Model):
