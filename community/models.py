@@ -17,7 +17,7 @@ class Achievement(models.Model):
 class Cooker(AbstractUser):
     avatar = models.ImageField(null=True, blank=True)
     rank = models.CharField(max_length=128, default="Novice")
-    achievements = models.ManyToManyField(Achievement, blank=True, related_name="cookers")
+    achievements = models.ManyToManyField(Achievement, related_name="cookers")
     currency = models.ForeignKey(Currency,
                                  on_delete=models.SET_NULL,
                                  null=True, blank=True,
