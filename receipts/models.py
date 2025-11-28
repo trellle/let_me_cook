@@ -65,7 +65,6 @@ class Dish(models.Model):
 
     name = models.CharField(max_length=512)
     authors = models.ManyToManyField(Cooker,
-                               null=True,
                                related_name="inventions")
     liked_users = models.ManyToManyField(Cooker, related_name="favourites")
     description = models.TextField(null=True, blank=True)
