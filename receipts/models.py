@@ -82,17 +82,17 @@ class Category(models.Model):
 
 
 class Institution(models.Model):
-     photo = models.ImageField()
-     name = models.CharField(max_length=128)
-     shedule = models.DateTimeField()
-     country = models.CharField(max_length=128)
-     city = models.CharField(max_length=128)
-     address = models.CharField(max_length=256)
+    photo = models.ImageField()
+    name = models.CharField(max_length=128)
+    shedule = models.DateTimeField()
+    country = models.CharField(max_length=128)
+    city = models.CharField(max_length=128)
+    address = models.CharField(max_length=256)
 
 
 class Shop(Institution):
-     assorti = models.ManyToManyField(Ingredient, related_name="shops")
+    assorti = models.ManyToManyField(Ingredient, related_name="shops")
 
 
 class Restaurant(Institution):
-     menu = models.ManyToManyField(Dish, related_name="restaurants")
+    menu = models.ManyToManyField(Dish, related_name="restaurants")
