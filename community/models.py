@@ -15,9 +15,9 @@ class Achievement(models.Model):
 
 
 class Cooker(AbstractUser):
-    avatar = models.ImageField()
-    rank = models.CharField(max_length=128)
-    achievements = models.ManyToManyField(Achievement, related_name="cookers")
+    avatar = models.ImageField(null=True, blank=True)
+    rank = models.CharField(max_length=128, default="Novice")
+    achievements = models.ManyToManyField(Achievement, blank=True, related_name="cookers")
     currency = models.ForeignKey(Currency,
                                  on_delete=models.SET_NULL,
                                  null=True, blank=True,
@@ -34,9 +34,9 @@ class Post(models.Model):
             MaxValueValidator(5)
         ]
     )
-    pros = models.TextField(blank=True)
-    cons = models.TextField(blank=True)
-    content = models.TextField(blank=True)
+    pros = models.TextField(blank=True, null=True)
+    cons = models.TextField(blank=True, null=True)
+    content = models.TextField()
 
 
 class PostImage(models.Model):
@@ -47,4 +47,4 @@ class PostImage(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(Cooker, on_delete=models.CASCADE, related_name="comments")
     create_time = models.DateTimeField(auto_now_add=True)
-    message = models.TextField(null=False, blank=False)
+    message = models.TextField()

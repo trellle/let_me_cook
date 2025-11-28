@@ -67,7 +67,7 @@ class Dish(models.Model):
     authors = models.ManyToManyField(Cooker,
                                null=True,
                                related_name="inventions")
-    liked_users = models.ManyToManyField(Cooker, related_name="favourites") 
+    liked_users = models.ManyToManyField(Cooker, blank=True, related_name="favourites")
     description = models.TextField(null=True, blank=True)
     receipt = models.OneToOneField(Receipt, on_delete=models.CASCADE, related_name="dish")
     price_usdt = models.DecimalField(max_digits=10, decimal_places=2)
@@ -75,6 +75,7 @@ class Dish(models.Model):
     creation_time = models.DateTimeField(auto_now_add=True)
     average_rate = models.DecimalField(max_digits=10,
                                        decimal_places = 2,
+                                       null=True,
                                        validators=[
                                            MinValueValidator(0),
                                            MaxValueValidator(5)
@@ -90,7 +91,7 @@ class Category(models.Model):
 
 
 class Institution(models.Model):
-     photo = models.ImageField()
+     photo = models.ImageField(null=True)
      name = models.CharField(max_length=128)
      shedule = models.DateTimeField()
      country = models.CharField(max_length=128)
