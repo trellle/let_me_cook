@@ -58,9 +58,13 @@ class Dish(models.Model):
 
     name = models.CharField(max_length=512)
 <<<<<<< HEAD
+<<<<<<< HEAD
     author = models.ForeignKey(Cooker,
                                on_delete=models.SET_NULL,
                                null=True,
+=======
+    authors = models.ManyToManyField(Cooker,
+>>>>>>> 32b81e1 (remade migrations)
 =======
     authors = models.ManyToManyField(Cooker,
 >>>>>>> 32b81e1 (remade migrations)

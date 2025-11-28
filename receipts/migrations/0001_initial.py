@@ -43,13 +43,8 @@ class Migration(migrations.Migration):
                 ('price_usdt', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('difficulty_rate', models.CharField(choices=[('super easy', 'even kids can make'), ('easy', 'everyone can repeat'), ('normal', 'skilled'), ('hard', 'nice cooker'), ('pro', 'growing talent'), ('chef', 'cooking artist')], max_length=64)),
                 ('creation_time', models.DateTimeField(auto_now_add=True)),
-<<<<<<< HEAD
-                ('average_rate', models.DecimalField(decimal_places=2, max_digits=10, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(5)])),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='inventions', to=settings.AUTH_USER_MODEL)),
-=======
                 ('average_rate', models.DecimalField(decimal_places=2, max_digits=10, null=True, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(5)])),
                 ('authors', models.ManyToManyField(related_name='inventions', to=settings.AUTH_USER_MODEL)),
->>>>>>> 32b81e1 (remade migrations)
                 ('liked_users', models.ManyToManyField(related_name='favourites', to=settings.AUTH_USER_MODEL)),
             ],
         ),
