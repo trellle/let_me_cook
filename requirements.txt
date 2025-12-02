@@ -16,7 +16,9 @@ crashtest==0.4.1
 crispy-bootstrap4==2025.6
 distlib==0.4.0
 Django==5.2.5
+django-appconf==1.2.0
 django-crispy-forms==2.4
+django-select2==8.4.3
 django-template-lsp==1.2.0
 dulwich==0.24.2
 fastjsonschema==2.21.2
