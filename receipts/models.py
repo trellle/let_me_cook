@@ -65,12 +65,12 @@ class Dish(models.Model):
 
     name = models.CharField(max_length=512)
     authors = models.ManyToManyField(Cooker,
-                               related_name="inventions")
+                               related_name="inventions") # default author
     liked_users = models.ManyToManyField(Cooker, related_name="favourites")
     description = models.TextField(null=True, blank=True)
     receipt = models.OneToOneField(Receipt, on_delete=models.CASCADE, related_name="dish")
     price_usdt = models.DecimalField(max_digits=10, decimal_places=2)
-    difficulty_rate = models.CharField(max_length=64, choices=Difficulties.choices) # choice field
+    difficulty_rate = models.CharField(max_length=64, choices=Difficulties.choices)
     creation_time = models.DateTimeField(auto_now_add=True)
     average_rate = models.DecimalField(max_digits=10,
                                        decimal_places = 2,
