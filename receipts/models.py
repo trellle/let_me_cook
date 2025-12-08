@@ -41,10 +41,10 @@ class Step(models.Model):
 
 
 class Measure(models.Model):
-     name = models.CharField(max_length=64)
-     abbreviation = models.CharField(max_length=32)
-     info = models.TextField()
-     image = models.ImageField()
+    name = models.CharField(max_length=64)
+    abbreviation = models.CharField(max_length=32)
+    info = models.TextField()
+    image = models.ImageField()
 
 
 class IngredientsAmount(models.Model):
