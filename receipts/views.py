@@ -38,7 +38,7 @@ class DishListView(generic.ListView):
         ingredients = self.request.GET.getlist("ingredient")
         not_ingredients = self.request.GET.getlist("not_ingredient")
         cookings = self.request.GET.getlist("cooking")
-        cuisines = self.request.GET.getlist("cuisine")
+        cuisines = self.request.GET.getlist("type_of_cuisine")
         min_rate = self.request.GET.get("min_rate")
         max_rate = self.request.GET.get("max_rate")
         by_rate = self.request.GET.get("by_rate", "desc")
