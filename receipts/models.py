@@ -46,6 +46,13 @@ class Step(models.Model):
         ]
 
 
+class Measure(models.Model):
+     name = models.CharField(max_length=64)
+     abbreviation = models.CharField(max_length=32)
+     info = models.TextField()
+     image = models.ImageField()
+
+
 class IngredientsAmount(models.Model):
     def check_amount(value):
         if value <= 0.0:
