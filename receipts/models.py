@@ -59,9 +59,9 @@ class IngredientsAmount(models.Model):
             raise ValidationError("Amount must be greater than 0.")
 
     ingredients = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE)
+    receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE, related_name="ingredients_amount")
     amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[check_amount])
-    measure = models.ForeignKey(Measure, on_delete=models.PROTECT)
+    measure = models.ForeignKey(Measure, on_delete=models.PROTECT, related_name="ingredients_amount")
 
     class Meta:
         constraints = [
@@ -98,12 +98,32 @@ class Dish(models.Model):
                                        ])
 
 
+class CookingMethod(models.Model):
+    name = models.CharField(max_length=64)
+
+
+class Cuisine(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+
+
 class Category(models.Model):
+    class CourseChoices(models.TextChoices):
+        MAIN = "main", "main course"
+        SOUP = "soup", "first course"
+        SALAD = "salad", "salads"
+        DESERT = "desert", "sweet deserts"
+        DRINK = "drink", "drinks"
+        SAUCE = "sauce", "spices&sauces"
+        SNACK = "snack", "starters"
+        BAKERY = "bakery", "baked goods"
+        SIDE_DISH = "side dish", "darnish"
+        BREAKFAST = "breakfast", "morning meals"
+
     dish = models.ForeignKey(Dish, on_delete=models.PROTECT, related_name="category")
-    course = models.CharField(max_length=256) # by role in eating
-    content = models.CharField(max_length=256) # by composition
-    cooking = models.CharField(max_length=256) # by cooking method
-    type_of_cuisine = models.CharField(max_length=256) # cuisine from different countries
+    course = models.CharField(max_length=256, choices=CourseChoices.choices) # by role in eating
+    cooking = models.ManyToManyField(CookingMethod, related_name="dish_category") # by cooking method
+    type_of_cuisine = models.ForeignKey(Cuisine, on_delete=models.SET_NULL, null=True, related_name="dish_category") # cuisine from different countries
 
 
 class Institution(models.Model):
