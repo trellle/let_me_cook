@@ -72,6 +72,15 @@ class IngredientsAmount(models.Model):
         ]
 
 
+class CookingMethod(models.Model):
+    name = models.CharField(max_length=64)
+
+
+class Cuisine(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+
+
 class Dish(models.Model):
     class Difficulties(models.TextChoices):
         ELEMENTARY = "super easy", "even kids can make"
@@ -81,7 +90,22 @@ class Dish(models.Model):
         PRO = "pro", "growing talent"
         CHEF = "chef", "cooking artist"
 
+    class CourseChoices(models.TextChoices):
+        MAIN = "main", "main course"
+        SOUP = "soup", "first course"
+        SALAD = "salad", "salads"
+        DESERT = "desert", "sweet deserts"
+        DRINK = "drink", "drinks"
+        SAUCE = "sauce", "spices&sauces"
+        SNACK = "snack", "starters"
+        BAKERY = "bakery", "baked goods"
+        SIDE_DISH = "side dish", "darnish"
+        BREAKFAST = "breakfast", "morning meals"
+
     name = models.CharField(max_length=512)
+    course = models.CharField(max_length=256, choices=CourseChoices.choices) # by role in eating
+    cooking = models.ManyToManyField(CookingMethod, related_name="dish_category") # by cooking method
+    type_of_cuisine = models.ForeignKey(Cuisine, on_delete=models.SET_NULL, null=True, related_name="dish_category") # cuisine from different countries
     authors = models.ManyToManyField(Cooker,
                                related_name="inventions")
     liked_users = models.ManyToManyField(Cooker, related_name="favourites")
@@ -97,34 +121,6 @@ class Dish(models.Model):
                                            MinValueValidator(0),
                                            MaxValueValidator(5)
                                        ])
-
-
-class CookingMethod(models.Model):
-    name = models.CharField(max_length=64)
-
-
-class Cuisine(models.Model):
-    name = models.CharField(max_length=128)
-    description = models.TextField()
-
-
-class Category(models.Model):
-    class CourseChoices(models.TextChoices):
-        MAIN = "main", "main course"
-        SOUP = "soup", "first course"
-        SALAD = "salad", "salads"
-        DESERT = "desert", "sweet deserts"
-        DRINK = "drink", "drinks"
-        SAUCE = "sauce", "spices&sauces"
-        SNACK = "snack", "starters"
-        BAKERY = "bakery", "baked goods"
-        SIDE_DISH = "side dish", "darnish"
-        BREAKFAST = "breakfast", "morning meals"
-
-    dish = models.ForeignKey(Dish, on_delete=models.PROTECT, related_name="category")
-    course = models.CharField(max_length=256, choices=CourseChoices.choices) # by role in eating
-    cooking = models.ManyToManyField(CookingMethod, related_name="dish_category") # by cooking method
-    type_of_cuisine = models.ForeignKey(Cuisine, on_delete=models.SET_NULL, null=True, related_name="dish_category") # cuisine from different countries
 
 
 class Institution(models.Model):
