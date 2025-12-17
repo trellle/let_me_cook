@@ -1,5 +1,5 @@
 from django import forms
-from receipts.models import Dish, Receipt, Step, Ingredient, Equipment, Category
+from receipts.models import Dish, Receipt, Step, Ingredient, Equipment, Category, CookingMethod
 from community.models import Cooker
 from django.forms import modelformset_factory, inlineformset_factory
 from django_select2.forms import Select2MultipleWidget, ModelSelect2MultipleWidget
@@ -64,7 +64,27 @@ class AuthorSelect2Widget(ModelSelect2MultipleWidget):
     search_fields = ["username_icontains"]
 
 
-class DishForm(forms.Models):
+class CookingMethod2Widget(ModelSelect2MultipleWidget):
+    model = CookingMethod
+    search_fields = ["name_icontains"]
+
+
+class CategoryForm(forms.ModelForm):
+    course = forms.ChoiceField(
+        choices=Category.CourseChoices,
+        widget=forms.RadioSelect
+    )
+    cooking = forms.ModelMultipleChoiceField(
+        queryset=CookingMethod.objects.all(),
+        widget=CookingMethod2Widget,
+        required=True
+    )
+    class Meta:
+        model = Category
+        fields = ["course", "cooking", "type_of_cuisine"]
+
+
+class DishForm(forms.ModelForm):
     autors = forms.ModelMultipleChoiceField(
         queryset=Cooker.objects.all(),
         widget=AuthorSelect2Widget,
@@ -72,4 +92,4 @@ class DishForm(forms.Models):
     )
     class Meta:
         model = Dish
-        fields = ["name", "authors", "description", "receipt", "price_usdt", "difficulty_rate"]
+        fields = ["name", "authors", "description", "category", "receipt", "price_usdt", "difficulty_rate"]

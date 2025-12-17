@@ -30,7 +30,7 @@ class DishListView(generic.ListView):
         context["cuisines"] = Category.objects.values_list("type_of_cuisine", flat=True).distinct()
         context["difficulties"] = Dish.Difficulties.choices
         return context
-    
+
     def get_queryset(self):
         queryset = Dish.objects.all()
         courses = self.request.GET.getlist("course")
@@ -47,9 +47,9 @@ class DishListView(generic.ListView):
         if courses:
             queryset = queryset.filter(category__course__in=courses)
         if contents:
-            queryset = queryset.filter(category__content__in=contents)
+            queryset = queryset.filter(receipt__ingredients__name__in=contents).distinct()
         if cookings:
-            queryset = queryset.filter(category__cooking__in=cookings)
+            queryset = queryset.filter(category__cooking__in=cookings).distinct()
         if cuisines:
             queryset = queryset.filter(category__type_of_cuisine__in=cuisines)
         if min_rate:
